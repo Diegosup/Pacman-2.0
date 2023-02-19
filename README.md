@@ -100,7 +100,7 @@ Esto indica que el bloque try se ejecutó pero arrojo una excepción, por lo que
 Por otra parte, que pasaría si usamos dos bloques except y un solo bloque try. Probemos con el siguiente ejemplo:
 ```ruby
 def is_linux():
-    return false;
+    return False;
 def linux_interaction():
     assert is_linux(),"Function can only run on Linux systems"
     print('Doing something')
@@ -119,10 +119,16 @@ Donde simularemos que podemos cambiar nuestro systema a linux, por lo que si eje
 Function can only run on Linux systems.
 Linux linux_interaction() function was not executed
 ```
-Esto ocurre debido a que como primero llamamos a la función de linux_interaction(), y en este caso devolvemos un valor falso al consultar si el sistema es linux, entonces, se lanza la excepción assert y se ignora la siguiente línea del bloque try y se pasa directamente al bloque de except que recibe la excepción assert y por lo tanto, se ejecuta el código dentro de este bloque.
-
-
-
+Esto ocurre debido a que como primero llamamos a la función de linux_interaction(), y en este caso devolvemos un valor falso al consultar si el sistema es linux, entonces, se lanza la excepción assert y se ignora la siguiente línea del bloque try y se pasa directamente al bloque de except que recibe la excepción assert y por lo tanto, se ejecuta el código dentro de este bloque. Ahora retornemos un valor vardadero dentro de is_linux() de la siguiente manera:
+```ruby
+def is_linux():
+    return True;
+```
+y si compilamos nos arroja lo siguiente:
+```ruby
+[Errno 2] No such file or directory: 'file.log'
+```
+Lo que ocurrió en este caso fue que la función linux_interaction() se ejecutó exitosamente sin lanzar una excepción, por lo que paso a la siguiente línea del bloque try y al ejecutarse, se lanzó la excepción tipo FileNotFoundError ya que no pudo abrir una archivo con el nombre file.log y por lo tanto ahora se pasó al bloque except correspondiente a FileNotFoundError
 
 
 
