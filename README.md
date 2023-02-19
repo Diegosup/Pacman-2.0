@@ -32,7 +32,6 @@ Dentro de las cuales en la siguiente tabla se muestran algunos errores junto con
 | ValueError | Se genera cuando una función obtiene un argumento del tipo correcto pero un valor incorrecto |
 | ZeroDivisionError | Se genera cuando el segundo operando de la operación de división o módulo es cero |
 
-# Excepción raise
 Una vez contemplados las excepciones integradas en python, tenemos la posibilidad de personalizar el manejo de errores lo cuál es una buena práctica como programadores. Para empezar debemos saber que existen dos tipos de errores, el error de sintaxis y el error de excepción. La diferencia entre estos es que el error de sintaxis ocurre cuando al analizador detecta una declaración incorrecta, probemos con el siguiente ejemplo de código:
 ```ruby
 print( 0 / 0 ))
@@ -55,6 +54,7 @@ Traceback (most recent call last):
 ZeroDivisionError: integer division or modulo by zero
 ```
 Lo que significa que el analizador no encontró errores de sintaxis, sin embargo, al compilar el código, se encontró la excepción de que la divisón no es válida ya que se está dividiendo sobre 0 lo cual matemáticamente no es válido.
+# Excepción raise
 Ya que ahora sabemos que existen dos tipos de errores, procederemos a manejar lo que son las excepciones comenzando con el commando `raise` que simplemente se encarga de lanzar una excepción de manera forzada al momento de cumplir cierta condición. Probemos con el siguiente ejemplo.
 ```ruby
 x = 10
@@ -82,6 +82,45 @@ AssertionError: This code runs on Linux only.
 ```
 
 # Excepción try y except
+Los commandos `try` y `except` tienen un propósito similar al de if/else , donde try correrá el código que se encuentre dentro de su respectivo bloque mientras que si llegara el caso en el que se haya lanzado una excepción, el bloque except se activará y por lo tanto ejecutará todo código que se encuentre dentor de este bloque. Probemos con el ejemplo anterior colocando estos debajo de la función de la siguiente manera:
+```ruby
+try:
+    linux_interaction()
+except AssertionError as error:
+    print(error)
+    print('The linux_interaction() function was not executed')
+```
+Por lo que al ejecutarlo en un sistema windows nos arrojará lo siguiente:
+```ruby
+Function can only run on Linux systems.
+The linux_interaction() function was not executed
+```
+Esto indica que el bloque try se ejecutó pero arrojo una excepción, por lo que el bloque except se activó y por lo tanto, mostró el error de assert de la función linux_iteraction() y después se imprimió que la función linux_iteraction() no se pudo ejecutar ya que dicha excepción se arrojo.
+
+Por otra parte, que pasaría si usamos dos bloques except y un solo bloque try. Probemos con el siguiente ejemplo:
+```ruby
+def is_linux():
+    return false;
+def linux_interaction():
+    assert is_linux(),"Function can only run on Linux systems"
+    print('Doing something')
+try:
+    linux_interaction()
+    with open('file.log') as file:
+        read_data = file.read()
+except FileNotFoundError as fnf_error:
+    print(fnf_error)
+except AssertionError as error:
+    print(error)
+    print('Linux linux_interaction() function was not executed')
+```
+Donde simularemos que podemos cambiar nuestro systema a linux, por lo que si ejecutamos el código nos arrojará lo siguiente:
+```ruby
+Function can only run on Linux systems.
+Linux linux_interaction() function was not executed
+```
+Esto ocurre debido a que como primero llamamos a la función de linux_interaction(), y en este caso devolvemos un valor falso al consultar si el sistema es linux, entonces, se lanza la excepción assert y se ignora la siguiente línea del bloque try y se pasa directamente al bloque de except que recibe la excepción assert y por lo tanto, se ejecuta el código dentro de este bloque.
+
 
 
 
