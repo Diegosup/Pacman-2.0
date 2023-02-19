@@ -71,14 +71,15 @@ Lo cual explica que se lanzo la excepción programada debido a que se cumplió l
 # Assert
 El commando `assert` se encarga de asegurar que una determinada condición se cumpla donde si la condición es verdadera, entonces el programa continua ejecutándose, en cambio, si es falso, el programa lanza una excepción tipo assert. Probemos con el siguiente código:
 ```ruby
-import sys
-assert ('linux' in sys.platform), "This code runs on Linux only."
+ans = input("¿Are cats Mammals? (Y/N): ")
+assert ans == "Y", "Wrong answer:cats are Mammals"
+print("¡Correct answer!")
 ```
 Esta excepción se encarga de verificar si nuestro sistema operativo es linux, por lo que si estamos en un sistema windows y lo compilamos, nos arroja lo siguiente:
 ```ruby
 Traceback (most recent call last):
-  File "<input>", line 2, in <module>
-AssertionError: This code runs on Linux only.
+  File "<string>", line 2, in <module>
+AssertionError: Wrong answer:cats are Mammals
 ```
 
 # try y except
