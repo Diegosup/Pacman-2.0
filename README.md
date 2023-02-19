@@ -68,7 +68,7 @@ Traceback (most recent call last):
 Exception: x should not exceed 5. The value of x was: 10
 ```
 Lo cual explica que se lanzo la excepción programada debido a que se cumplió la condición de que el valor de x es mayor a 5, por el contrario, la excepción no se lanza y el código compila exitosamente.
-# Excepción assert
+# Assert
 El commando `assert` se encarga de asegurar que una determinada condición se cumpla donde si la condición es verdadera, entonces el programa continua ejecutándose, en cambio, si es falso, el programa lanza una excepción tipo assert. Probemos con el siguiente código:
 ```ruby
 import sys
@@ -81,7 +81,7 @@ Traceback (most recent call last):
 AssertionError: This code runs on Linux only.
 ```
 
-# Excepción try y except
+# try y except
 Los commandos `try` y `except` tienen un propósito similar al de if/else , donde try correrá el código que se encuentre dentro de su respectivo bloque mientras que si llegara el caso en el que se haya lanzado una excepción, el bloque except se activará y por lo tanto ejecutará todo código que se encuentre dentor de este bloque. Probemos con el ejemplo anterior colocando estos debajo de la función de la siguiente manera:
 ```ruby
 try:
@@ -128,7 +128,65 @@ y si compilamos nos arroja lo siguiente:
 ```ruby
 [Errno 2] No such file or directory: 'file.log'
 ```
-Lo que ocurrió en este caso fue que la función linux_interaction() se ejecutó exitosamente sin lanzar una excepción, por lo que paso a la siguiente línea del bloque try y al ejecutarse, se lanzó la excepción tipo FileNotFoundError ya que no pudo abrir una archivo con el nombre file.log y por lo tanto ahora se pasó al bloque except correspondiente a FileNotFoundError
+Lo que ocurrió en este caso fue que la función linux_interaction() se ejecutó exitosamente sin lanzar una excepción, por lo que paso a la siguiente línea del bloque try y al ejecutarse, se lanzó la excepción tipo FileNotFoundError ya que no pudo abrir una archivo con el nombre file.log y por lo tanto ahora se pasó al bloque except correspondiente a FileNotFoundError y se ejecutó el código dentro de este bloque que mando a imprimir el mensaje arrojado.
+
+# Else
+El comando `else` funciona como un segundo bloque try, pero este se ejecutará siempre y cuando todavía no se hayan lanzado excepciones en bloques anteriores a este, para probarlo, intentemos con el siguiente còdigo:
+```ruby
+try:
+    linux_interaction()
+except AssertionError as error:
+    print(error)
+else:
+    try:
+        with open('file.log') as file:
+            read_data = file.read()
+    except FileNotFoundError as fnf_error:
+        print(fnf_error)
+```
+y al compilarlo nos arrojará lo siguiente:
+```ruby
+Doing something.
+[Errno 2] No such file or directory: 'file.log'
+```
+Esto implicó que el bloque try se ejecutó sin lanzar excepciones, por lo que el bloque except se ignoró y se pasó al bloque else y dentro de este al ejecutar el bloque try, se arrojó la excepción de que el archivo no fue encontrado y por lo tanto el siguiente bloque except se ejecutó, imprimiendo la excepción arrojada.
+# Finally
+Por último, el commando `finally` indica que todo el código dentro de este bloque se ejecutara siempre, sin importar si se lanzaron excepciones o no. Para comprobarlo probemos con el siguiente código:
+```ruby
+try:
+    linux_interaction()
+except AssertionError as error:
+    print(error)
+else:
+    try:
+        with open('file.log') as file:
+            read_data = file.read()
+    except FileNotFoundError as fnf_error:
+        print(fnf_error)
+finally:
+    print('Cleaning up, irrespective of any exceptions.')
+```
+Al compilarlo nos arrojará lo siguiente:
+```ruby
+Doing something.
+[Errno 2] No such file or directory: 'file.log'
+Cleaning up, irrespective of any exceptions.
+```
+Donde como se había dicho antes, el primer bloque try se ejecutó sin arrojar excepciones, por lo que se paso al bloque else y dentro de este, en el bloque try se arrojó una excepción y se ejecutó el bloque except siguiente y al final se ejecutó el bloque finally imprimiendo el mensaje dentro de este. En cambio si ahora retornamos un valor falso dentro de la función linus_interaction() de la siguiente manera:
+```ruby
+def is_linux():
+    return False;
+```
+y compilamos, nos da el siguiente resultado:
+```ruby
+Function can only run on Linux systems.
+Cleaning up, irrespective of any exceptions.
+```
+Lo cual significa que el primer bloque try lanzó una excepción, por lo que se ejecuto el siguiente bloque except e ignorando todo el bloque else, por lo que se imprimió la excepción recibida y el mensaje contenido en el bloque finally, justificando que el bloque finally siempre se ejecutara sin importar si hubo excepciones o no.
+
+
+
+
 
 
 
