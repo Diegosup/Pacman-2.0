@@ -166,7 +166,7 @@ def is_linux():
 ```
 al compilarlo nos arroja lo siguiente:
 ```ruby
-Function can only run on Linux systems.
+Function can only run on Linux systems
 ```
 Lo cual significa que el bloque try no se logró ejecutar exitosamente y por lo tanto lanzó una excepción y por lo que el bloque except se ejecutó imprimiendo la excepción, ignorando todo el código dentro del bloque else.
 
