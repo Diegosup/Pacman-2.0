@@ -32,7 +32,29 @@ Dentro de las cuales en la siguiente tabla se muestran algunos errores junto con
 | ValueError | Se genera cuando una función obtiene un argumento del tipo correcto pero un valor incorrecto |
 | ZeroDivisionError | Se genera cuando el segundo operando de la operación de división o módulo es cero |
 
-Una vez contemplados las excepciones integradas en python, podemos comprender
+Una vez contemplados las excepciones integradas en python, tenemos la posibilidad de personalizar el manejo de errores lo cuál es una buena práctica como programadores. Para empezar debemos saber que existen dos tipos de errores, el error de sintaxis y el error de excepción. La diferencia entre estos es que el error de sintaxis ocurre cuando al analizador detecta una declaración incorrecta, probemos con el siguiente ejemplo de código:
+```ruby
+print( 0 / 0 ))
+```
+Donde si lo compilamos, nos arroja lo siguiente:
+```ruby
+File "<stdin>", line 1
+    print( 0 / 0 ))
+                  ^
+SyntaxError: invalid syntax
+```
+Lo cual indica que el analizador encontró que hay un paréntesis extra el cual está incompleto ya que no está encapsulando a un comando en específico. Por otro lado, el error de excepción ocurre cuando el código Python está sintácticamente correcto pero da como resultado un error, para compobarlo, probemos con el siguiente ejemplo:
+```ruby
+print( 0 / 0 )
+```
+Si lo compilamos, ahora nos da como resultado:
+```ruby
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ZeroDivisionError: integer division or modulo by zero
+```
+Lo que significa que el analizador no encontró errores de sintaxis, sin embargo, al compilar el código, se encontró la excepción de que la divisón no es válida ya que se está dividiendo sobre 0 lo cual matemáticamente no es válido.
+
 
 
 
