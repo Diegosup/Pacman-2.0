@@ -84,6 +84,11 @@ AssertionError: This code runs on Linux only.
 # try y except
 Los commandos `try` y `except` tienen un propósito similar al de if/else , donde try correrá el código que se encuentre dentro de su respectivo bloque mientras que si llegara el caso en el que se haya lanzado una excepción, el bloque except se activará y por lo tanto ejecutará todo código que se encuentre dentor de este bloque. Probemos con el ejemplo anterior colocando estos debajo de la función de la siguiente manera:
 ```ruby
+def is_linux():
+    return False;
+def linux_interaction():
+    assert is_linux(),"Function can only run on Linux systems"
+    print('Doing something')
 try:
     linux_interaction()
 except AssertionError as error:
@@ -133,6 +138,11 @@ Lo que ocurrió en este caso fue que la función linux_interaction() se ejecutó
 # Else
 El comando `else` funciona como un segundo bloque try, pero este se ejecutará siempre y cuando todavía no se hayan lanzado excepciones en bloques anteriores a este, para probarlo, intentemos con el siguiente còdigo:
 ```ruby
+def is_linux():
+    return False;
+def linux_interaction():
+    assert is_linux(),"Function can only run on Linux systems"
+    print('Doing something')
 try:
     linux_interaction()
 except AssertionError as error:
@@ -149,10 +159,26 @@ y al compilarlo nos arrojará lo siguiente:
 Doing something.
 [Errno 2] No such file or directory: 'file.log'
 ```
-Esto implicó que el bloque try se ejecutó sin lanzar excepciones, por lo que el bloque except se ignoró y se pasó al bloque else y dentro de este al ejecutar el bloque try, se arrojó la excepción de que el archivo no fue encontrado y por lo tanto el siguiente bloque except se ejecutó, imprimiendo la excepción arrojada.
+Esto implicó que el bloque try se ejecutó sin lanzar excepciones, por lo que el bloque except se ignoró y se pasó al bloque else y dentro de este al ejecutar el bloque try, se arrojó la excepción de que el archivo no fue encontrado y por lo tanto el siguiente bloque except se ejecutó, imprimiendo la excepción arrojada. Ahora si cambiamos nuestra función de is_linux() de la siguiente manera:
+```ruby
+def is_linux():
+    return False;
+```
+al compilarlo nos arroja lo siguiente:
+```ruby
+Function can only run on Linux systems.
+```
+Lo cual significa que el bloque try no se logró ejecutar exitosamente y por lo tanto lanzó una excepción y por lo que el bloque except se ejecutó imprimiendo la excepción, ignorando todo el código dentro del bloque else.
+
+
 # Finally
 Por último, el commando `finally` indica que todo el código dentro de este bloque se ejecutara siempre, sin importar si se lanzaron excepciones o no. Para comprobarlo probemos con el siguiente código:
 ```ruby
+def is_linux():
+    return False;
+def linux_interaction():
+    assert is_linux(),"Function can only run on Linux systems"
+    print('Doing something')
 try:
     linux_interaction()
 except AssertionError as error:
