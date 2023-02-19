@@ -1,4 +1,4 @@
-# Pacman-2.0
+# Manejo de errores
 
 Parar saber manejar errores primero debemos conocer que python contiene excepciones integradas en las cuales se pueden consultar ingresando ell siguiente commando dentro de nuestro ambiente de desarrollo:
 ```ruby
@@ -32,6 +32,7 @@ Dentro de las cuales en la siguiente tabla se muestran algunos errores junto con
 | ValueError | Se genera cuando una función obtiene un argumento del tipo correcto pero un valor incorrecto |
 | ZeroDivisionError | Se genera cuando el segundo operando de la operación de división o módulo es cero |
 
+# Excepción raise
 Una vez contemplados las excepciones integradas en python, tenemos la posibilidad de personalizar el manejo de errores lo cuál es una buena práctica como programadores. Para empezar debemos saber que existen dos tipos de errores, el error de sintaxis y el error de excepción. La diferencia entre estos es que el error de sintaxis ocurre cuando al analizador detecta una declaración incorrecta, probemos con el siguiente ejemplo de código:
 ```ruby
 print( 0 / 0 ))
@@ -54,6 +55,34 @@ Traceback (most recent call last):
 ZeroDivisionError: integer division or modulo by zero
 ```
 Lo que significa que el analizador no encontró errores de sintaxis, sin embargo, al compilar el código, se encontró la excepción de que la divisón no es válida ya que se está dividiendo sobre 0 lo cual matemáticamente no es válido.
+Ya que ahora sabemos que existen dos tipos de errores, procederemos a manejar lo que son las excepciones comenzando con el commando `raise` que simplemente se encarga de lanzar una excepción de manera forzada al momento de cumplir cierta condición. Probemos con el siguiente ejemplo.
+```ruby
+x = 10
+if x > 5:
+    raise Exception('x should not exceed 5. The value of x was: {}'.format(x))
+```
+Por lo que al compilar, obtendremos lo siguiente:
+```ruby
+Traceback (most recent call last):
+  File "<input>", line 4, in <module>
+Exception: x should not exceed 5. The value of x was: 10
+```
+Lo cual explica que se lanzo la excepción programada debido a que se cumplió la condición de que el valor de x es mayor a 5, por el contrario, la excepción no se lanza y el código compila exitosamente.
+# Excepción assert
+El commando `assert` se encarga de asegurar que una determinada condición se cumpla donde si la condición es verdadera, entonces el programa continua ejecutándose, en cambio, si es falso, el programa lanza una excepción tipo assert. Probemos con el siguiente código:
+```ruby
+import sys
+assert ('linux' in sys.platform), "This code runs on Linux only."
+```
+Esta excepción se encarga de verificar si nuestro sistema operativo es linux, por lo que si estamos en un sistema windows y lo compilamos, nos arroja lo siguiente:
+```ruby
+Traceback (most recent call last):
+  File "<input>", line 2, in <module>
+AssertionError: This code runs on Linux only.
+```
+
+# Excepción try y except
+
 
 
 
