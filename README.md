@@ -97,7 +97,7 @@ except AssertionError as error:
 ```
 Por lo que al ejecutarlo en un sistema windows nos arrojará lo siguiente:
 ```ruby
-Function can only run on Linux systems.
+Function can only run on Linux systems
 The linux_interaction() function was not executed
 ```
 Esto indica que el bloque try se ejecutó pero arrojo una excepción, por lo que el bloque except se activó y por lo tanto, mostró el error de assert de la función linux_iteraction() y después se imprimió que la función linux_iteraction() no se pudo ejecutar ya que dicha excepción se arrojo.
@@ -121,7 +121,7 @@ except AssertionError as error:
 ```
 Donde simularemos que podemos cambiar nuestro systema a linux, por lo que si ejecutamos el código nos arrojará lo siguiente:
 ```ruby
-Function can only run on Linux systems.
+Function can only run on Linux systems
 Linux linux_interaction() function was not executed
 ```
 Esto ocurre debido a que como primero llamamos a la función de linux_interaction(), y en este caso devolvemos un valor falso al consultar si el sistema es linux, entonces, se lanza la excepción assert y se ignora la siguiente línea del bloque try y se pasa directamente al bloque de except que recibe la excepción assert y por lo tanto, se ejecuta el código dentro de este bloque. Ahora retornemos un valor vardadero dentro de is_linux() de la siguiente manera:
@@ -205,7 +205,7 @@ def is_linux():
 ```
 y compilamos, nos da el siguiente resultado:
 ```ruby
-Function can only run on Linux systems.
+Function can only run on Linux systems
 Cleaning up, irrespective of any exceptions.
 ```
 Lo cual significa que el primer bloque try lanzó una excepción, por lo que se ejecuto el siguiente bloque except e ignorando todo el bloque else, por lo que se imprimió la excepción recibida y el mensaje contenido en el bloque finally, justificando que el bloque finally siempre se ejecutara sin importar si hubo excepciones o no.
